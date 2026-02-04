@@ -2,6 +2,10 @@
 
 Multiplayer Telegram mini-game bot with MongoDB integration. Built with Node.js and deployed on Render.
 
+**🤖 Try it now:** [@my_guess_game_bot](https://t.me/my_guess_game_bot)
+
+[![Open in Telegram](https://img.shields.io/badge/Open%20in%20Telegram-2CA5E0?style=for-the-badge&logo=telegram&logoColor=white)](https://t.me/my_guess_game_bot)
+
 ## 🚀 Features
 
 - **Multiplayer gameplay** – Real-time game sessions
@@ -63,14 +67,17 @@ telegram-game-bot/
 ├── achievements.js     # Achievement tracking
 ├── package.json        # Dependencies
 └── .gitignore          # Git ignore rules
-🎯 How to Use
-Open Telegram and search for your bot
+## 🎯 How to Use
 
-Start the bot with /start
+**Try the live bot:** [@my_guess_game_bot](https://t.me/my_guess_game_bot)
 
-Follow the game instructions
+1. Open the bot in Telegram: https://t.me/my_guess_game_bot
+2. Start the bot with `/start`
+3. Follow the game instructions
+4. Compete with other players in real-time
 
-Compete with other players in real-time
+> **Note:** Bot runs on Render free tier – first message after inactivity may take ~20-30s to wake up.
+
 
 🔧 Development
 This is a portfolio project demonstrating:
