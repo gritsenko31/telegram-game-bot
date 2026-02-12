@@ -1,8 +1,10 @@
 require('dotenv').config();  // ПЕРВЫЙ!
 const fetch = require('node-fetch');
 
-const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
-const API_URL = `https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent?key=${GEMINI_API_KEY}`;
+// ========== GROQ API CONFIGURATION ==========
+const GROQ_API_KEY = process.env.GROQ_API_KEY;
+const GROQ_API_URL = 'https://api.groq.com/openai/v1/chat/completions';
+// ============================================
 
 const { Telegraf, Markup } = require('telegraf');
 const db = require('./database');
@@ -29,7 +31,7 @@ const activeGames = new Map();
 (async () => {
   await db.connectDatabase();
   bot.launch();
-  console.log('✅ Bot launched with AI!');
+  console.log('✅ Bot launched with Groq AI!');
 })();
 
 function mainMenuKeyboard() {
@@ -119,7 +121,7 @@ bot.action(/solo_(easy|medium|hard)/, async (ctx) => {
   );
 });
 
-// ✅ ОБНОВЛЕННЫЙ ОБРАБОТЧИК - AI ДОСТУПЕН ВСЕГДА
+// ========== GROQ AI HANDLER ==========
 bot.on('text', async (ctx) => {
   const userId = ctx.from.id;
   const text = ctx.message.text;
@@ -129,20 +131,29 @@ bot.on('text', async (ctx) => {
   
   const guess = parseInt(text);
   
-  // ✅ AI РЕЖИМ — если НЕ число, ВСЕГДА отвечает AI
+  // ✅ AI РЕЖИМ — если НЕ число, отвечает Groq AI
   if (isNaN(guess)) {
     try {
-      const prompt = `You are a friendly assistant in a number guessing game bot. 
-      Users can ask about rules, request hints, or just chat. 
-      Always respond in English, keep answers brief (under 100 words) and friendly.
-      Be encouraging and fun!
-      User's message: ${text}`;
-      
-      const response = await fetch(API_URL, {
+      const response = await fetch(GROQ_API_URL, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Authorization': `Bearer ${GROQ_API_KEY}`,
+          'Content-Type': 'application/json'
+        },
         body: JSON.stringify({
-          contents: [{ parts: [{ text: prompt }] }]
+          model: 'llama-3.3-70b-versatile',
+          messages: [
+            {
+              role: 'system',
+              content: 'You are a friendly assistant in a number guessing game bot. Users can ask about rules, request hints, or just chat. Always respond in English, keep answers brief (under 100 words) and friendly. Be encouraging and fun!'
+            },
+            {
+              role: 'user',
+              content: text
+            }
+          ],
+          temperature: 0.7,
+          max_tokens: 500
         })
       });
       
@@ -152,10 +163,11 @@ bot.on('text', async (ctx) => {
         throw new Error(data.error.message);
       }
       
-      const aiResponse = data.candidates[0].content.parts[0].text;
+      const aiResponse = data.choices[0].message.content;
       return ctx.reply(aiResponse);
+      
     } catch (error) {
-      console.error('AI Error:', error);
+      console.error('AI Error:', error.message);
       return ctx.reply('Sorry, I couldn\'t process your message. Try again or type /start for a new game! 🎮');
     }
   }
