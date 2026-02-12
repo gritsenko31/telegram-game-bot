@@ -2,9 +2,6 @@
   "name": "ai-chat-bot",
   "version": "1.0.0",
   "main": "bot.js",
-  "engines": {
-    "node": "24.x"
-  },
   "scripts": {
     "start": "node bot.js"
   },
