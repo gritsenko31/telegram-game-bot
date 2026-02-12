@@ -92,6 +92,24 @@ Cloud deployment and monitoring
 
 AI-assisted development workflow
 
+ 🤖 AI Assistant Update (February 12, 2026)
+
+The bot now includes an **intelligent AI assistant** powered by Google Gemini 2.5 Flash!
+
+### What's New:
+- **Always Available**: Chat with AI anytime - during gameplay, in menus, or when idle
+- **Smart Responses**: Ask about rules, request hints, or just have a conversation
+- **Seamless Integration**: Type any text (not a number) to interact with AI
+- **English Only**: All AI responses are in English for consistency
+- **Non-Intrusive**: Numbers trigger gameplay, text triggers AI chat
+
+### Use Cases:
+- Learn game rules: *"How do I play?"*
+- Get strategic advice: *"What's the best strategy for hard mode?"*
+- Request hints: *"Give me a hint for my current game"*
+- Casual chat: *"Tell me a joke"* or *"Hello, how are you?"*
+
+The AI understands context and provides helpful, friendly responses in under 100 words.
 
 👤 Author
 gritsenko31
