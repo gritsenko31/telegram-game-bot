@@ -2,7 +2,7 @@ require('dotenv').config();  // ПЕРВЫЙ!
 const { GoogleGenerativeAI } = require('@google/generative-ai');
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-const model = genAI.getGenerativeModel({
+const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
 
 const { Telegraf, Markup } = require('telegraf');
